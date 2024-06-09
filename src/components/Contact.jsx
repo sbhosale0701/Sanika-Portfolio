@@ -5,6 +5,7 @@ const Contact = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [error, setError] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,13 +16,14 @@ const Contact = () => {
     })
       .then(() => {
         alert('Message has been submitted👍🏻');
+        setName('');
+        setEmail('');
+        setMessage('');
+        setError(null);
       })
       .catch((error) => {
-        alert(error.message);
+        setError(error.message);
       });
-    setName('');
-    setEmail('');
-    setMessage('');
   };
 
   return (
@@ -32,6 +34,7 @@ const Contact = () => {
             <p className='text-4xl font-bold inline border-b-4 border-cyan-500 text-gray-300'>Contact</p>
             <p className='text-gray-300 py-4'>Send me a message</p>
           </div>
+          {error && <p className="text-red-500">{error}</p>}
           <input
             className='bg-[#ccd6f6] p-2'
             type="text"
